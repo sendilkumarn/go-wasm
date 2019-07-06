@@ -6,20 +6,34 @@ license that can be found in the LICENSE file.
 -->
 <html>
 
-	<head>
-		<meta charset="utf-8">
-		<title>Go wasm</title>
-	</head>
+<head>
+	<meta charset="utf-8">
+	<title>Go wasm</title>
+	<style>
+		.color {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin: 10px;
+       }
+	</style>
 
-	<body>
-		<script src="wasm_exec.js"></script>
-		<script>
-			const go = new Go();
-			WebAssembly.instantiateStreaming(fetch('main.wasm'),go.importObject).then( res=> {
-				go.run(res.instance)	
-			})
-		</script>
+</head>
 
-	</body>
+<body>
+	<script src="wasm_exec.js"></script>
+	<script>
+		const go = new Go();
+		WebAssembly.instantiateStreaming(fetch('main.wasm'),go.importObject).then( res=> {
+			go.run(res.instance)	
+		})
+	</script>
+
+	<canvas id="canvas"></canvas>	
+
+	<div id="colors"> </div>
+</body>
 
 </html>
