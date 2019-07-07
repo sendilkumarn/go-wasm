@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"syscall/js"
 )
 
@@ -37,7 +36,6 @@ func main() {
 		print(x)
 		print(y)
 
-		println("asasdasdad")
 		return nil
 	})
 
@@ -83,7 +81,7 @@ func main() {
 		node := doc.Call("createElement", "div")
 		node.Call("setAttribute", "class", "color")
 		node.Call("setAttribute", "id", x)
-		node.Call("setAttribute", "style", fmt.Sprintf("background-color: %s", x))
+		node.Call("setAttribute", "style", "background-color: "+x)
 
 		setColor := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 			e := args[0]
