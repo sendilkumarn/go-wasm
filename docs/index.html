@@ -28,6 +28,8 @@ license that can be found in the LICENSE file.
 		const go = new Go();
 		WebAssembly.instantiateStreaming(fetch('main.wasm'),go.importObject).then( res=> {
 			go.run(res.instance)	
+
+			console.log(res.instance.exports.resume)
 		})
 	</script>
 
