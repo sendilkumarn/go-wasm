@@ -23,9 +23,6 @@ func main() {
 	canvasEl.Set("height", bodyH)
 	ctx = canvasEl.Call("getContext", "2d")
 
-	ctx.Set("fillStyle", "Red")
-	ctx.Call("fillRect", 20, 20, 150, 100)
-
 	startPaint := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		e := args[0]
 		isPainting = true
