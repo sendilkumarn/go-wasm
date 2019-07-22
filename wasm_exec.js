@@ -219,14 +219,12 @@
 
 					// func stringVal(value string) ref
 					"syscall/js.stringVal": (ret_ptr, value_ptr, value_len) => {
-						console.log('stringval')
 						const s = loadString(value_ptr, value_len);
 						storeValue(ret_ptr, s);
 					},
 
 					// func valueGet(v ref, p string) ref
 					"syscall/js.valueGet": (retval, v_addr, p_ptr, p_len) => {
-						console.log('get')
 						let prop = loadString(p_ptr, p_len);
 						let value = loadValue(v_addr);
 						let result = Reflect.get(value, prop);
@@ -235,19 +233,14 @@
 
 					// func valueSet(v ref, p string, x ref)
 					"syscall/js.valueSet": (v_addr, p_ptr, p_len, x_addr) => {
-						console.log('set')
 						const v = loadValue(v_addr);
 						const p = loadString(p_ptr, p_len);
 						const x = loadValue(x_addr);
-						console.log('before set')
 						Reflect.set(v, p, x);
-									console.log('after set')
 					},
 
 					// func valueIndex(v ref, i int) ref
 					"syscall/js.valueIndex": (ret_addr, v_addr, i) => {
-
-						console.log('value index')
 						storeValue(ret_addr, Reflect.get(loadValue(v_addr), i));
 					},
 
@@ -258,13 +251,11 @@
 
 					// func valueCall(v ref, m string, args []ref) (ref, bool)
 					"syscall/js.valueCall": (ret_addr, v_addr, m_ptr, m_len, args_ptr, args_len, args_cap) => {
-								console.log('value call')
 						const v = loadValue(v_addr);
 						const name = loadString(m_ptr, m_len);
 						const args = loadSliceOfValues(args_ptr, args_len, args_cap);
 						try {
 							const m = Reflect.get(v, name);
-							console.log(m)
 							storeValue(ret_addr, Reflect.apply(m, v, args));
 							mem().setUint8(ret_addr + 8, 1);
 						} catch (err) {
@@ -288,7 +279,6 @@
 
 					// func valueNew(v ref, args []ref) (ref, bool)
 					"syscall/js.valueNew": (ret_addr, v_addr, args_ptr, args_len, args_cap) => {
-								console.log('value mew')
 						const v = loadValue(v_addr);
 						const args = loadSliceOfValues(args_ptr, args_len, args_cap);
 						try {
@@ -302,13 +292,11 @@
 
 					// func valueLength(v ref) int
 					"syscall/js.valueLength": (v_addr) => {
-								console.log('value length')
 						return loadValue(v_addr).length;
 					},
 
 					// valuePrepareString(v ref) (ref, int)
 					"syscall/js.valuePrepareString": (ret_addr, v_addr) => {
-								console.log('vps')
 						const s = String(loadValue(v_addr));
 						const str = encoder.encode(s);
 						storeValue(ret_addr, str);
@@ -317,7 +305,6 @@
 
 					// valueLoadString(v ref, b []byte)
 					"syscall/js.valueLoadString": (v_addr, slice_ptr, slice_len, slice_cap) => {
-						console.log('vls')
 						const str = loadValue(v_addr);
 						loadSlice(slice_ptr, slice_len, slice_cap).set(str);
 					},

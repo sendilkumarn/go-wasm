@@ -19,6 +19,7 @@ func main() {
 	canvasEl := doc.Call("getElementById", "canvas")
 	bodyW := doc.Get("body").Get("clientWidth").Float()
 	bodyH := doc.Get("body").Get("clientHeight").Float()
+
 	canvasEl.Set("width", bodyW)
 	canvasEl.Set("height", bodyH)
 	ctx = canvasEl.Call("getContext", "2d")
